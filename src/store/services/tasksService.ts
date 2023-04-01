@@ -22,10 +22,18 @@ export const tasksApi = createApi({
       }),
       providesTags: [TasksTagTypes.TASKS],
     }),
+    addTask: build.query<ITaskProps[], unknown>({
+      query: ({ content }) => ({
+        method: "POST",
+        url: `rest/tasks`,
+        body: content,
+      }),
+      providesTags: [TasksTagTypes.TASKS],
+    }),
   }),
 });
 
-export const { useGetAllTasksQuery } = tasksApi;
+export const { useGetAllTasksQuery, useAddTaskQuery } = tasksApi;
 
 export const tasksApiReducer = {
   [tasksApi.reducerPath]: tasksApi.reducer,

@@ -8,11 +8,14 @@ const AllTasks: React.FC = () => {
   const [show, setShow] = useState(false);
 
   return (
+    <>
     <div className="m-5">
       <Header {...{ show }} {...{ setShow }} />
       <TasksList />
-      <AddTaskModal {...{ show }} {...{ setShow }} />
     </div>
+    <AddTaskModal {...{ show }} {...{ setShow }} />
+
+    </>
   );
 };
 

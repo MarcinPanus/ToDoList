@@ -8,6 +8,11 @@ declare module "task-types" {
 
   interface IModalProps {
     show: Boolean;
-    setShow: React.Dispatch<React.SetStateAction<boolean>>
+    setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  }
+
+  interface IModalAddTaksProps {
+    title: string;
+    description: string;
   }
 }

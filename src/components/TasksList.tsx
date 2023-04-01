@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import Task from "./Task";
 import { ITaskProps } from "task-types";
 import { useGetAllTasksQuery } from "@store/services/tasksService";
@@ -17,7 +15,7 @@ const TasksList: React.FC = () => {
   );
 
   if (isFetching) {
-    return <h2>Laduje sie kurwa...</h2>;
+    return <h5>Loading...</h5>;
   }
 
   return (
