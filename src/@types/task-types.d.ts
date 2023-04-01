@@ -5,4 +5,9 @@ declare module "task-types" {
     description: string;
     done: boolean;
   }
+
+  interface IModalProps {
+    show: Boolean;
+    setShow: React.Dispatch<React.SetStateAction<boolean>>
+  }
 }

@@ -1,14 +1,24 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+import { IModalProps } from "task-types";
 
-const Header: React.FC = () => {
+const Header: React.FC<IModalProps> = (props) => {
+  const { setShow } = props;
+
+  const handleShow = () => setShow(true);
+
   return (
-    <div className="card-body">
-      <h5 className="card-title">task list</h5>
-      <p className="card-text">here&apos;s a list of all your tasks</p>
-      <p>if you want to add a task, press the button below</p>
-      <a href="#" className="btn btn-primary">
-        add task
-      </a>
+    <div className="card-body m-5">
+      <h2 className="card-title text-center mb-3">task list</h2>
+      <div className="card-text row justify-content-md-center h5 mb-3">
+        here&apos;s a list of all your tasks, if you want to add a task, <br />
+        press the button below
+      </div>
+      <div className="d-grid gap-2 col-2 mx-auto">
+        <Button className="btn btn-primary" onClick={handleShow}>
+          add task
+        </Button>
+      </div>
     </div>
   );
 };

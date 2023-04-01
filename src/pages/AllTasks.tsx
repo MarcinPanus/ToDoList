@@ -1,13 +1,18 @@
 import Header from "@components/Header";
 import TasksList from "@components/TasksList";
-import React from "react";
+import AddTaskModal from "@components/modals/AddTaskModal";
+import React, { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 
 const AllTasks: React.FC = () => {
+  const [show, setShow] = useState(false);
+
   return (
-    <>
-      <Header />
+    <div className="m-5">
+      <Header {...{ show }} {...{ setShow }} />
       <TasksList />
-    </>
+      <AddTaskModal {...{ show }} {...{ setShow }} />
+    </div>
   );
 };
 
