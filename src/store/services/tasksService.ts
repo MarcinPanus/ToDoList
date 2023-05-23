@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITaskProps } from "task-types";
+import { ITaskProps, IModalAddTaksProps } from "task-types";
 
 enum TasksTagTypes {
   TASKS = "TASKS",
@@ -10,6 +10,8 @@ export const tasksApi = createApi({
     baseUrl: import.meta.env.VITE_APP_BASE_URL,
     prepareHeaders: (headers, { getState }) => {
       headers.set("x-apikey", import.meta.env.VITE_API_KEY);
+      headers.set("Content-Type", "application/json");
+      
     },
   }),
   reducerPath: "tasksApi",
@@ -22,18 +24,18 @@ export const tasksApi = createApi({
       }),
       providesTags: [TasksTagTypes.TASKS],
     }),
-    addTask: build.query<ITaskProps[], unknown>({
-      query: ({ content }) => ({
+    addTask: build.mutation<unknown, IModalAddTaksProps>({
+      query: (data) => ({
         method: "POST",
         url: `rest/tasks`,
-        body: content,
+        body: data
       }),
-      providesTags: [TasksTagTypes.TASKS],
+      invalidatesTags: [TasksTagTypes.TASKS],
     }),
   }),
 });
 
-export const { useGetAllTasksQuery, useAddTaskQuery } = tasksApi;
+export const { useGetAllTasksQuery, useAddTaskMutation } = tasksApi;
 
 export const tasksApiReducer = {
   [tasksApi.reducerPath]: tasksApi.reducer,

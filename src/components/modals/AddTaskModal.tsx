@@ -1,26 +1,32 @@
-import { useAddTaskQuery } from "@store/services/tasksService";
+import { useAddTaskMutation } from "@store/services/tasksService";
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useModal } from "src/hooks/useModal";
 import { IModalProps, IModalAddTaksProps } from "task-types";
 
-const AddTaskModal: React.FC<IModalProps> = (props) => {
-  const { show, setShow } = props;
+const AddTaskModal: React.FC<IModalProps> = () => {
+  const { isOpen: isAddEmployeeModalOpen, toggle: toggleAddEmployeeModal } =
+    useModal();
+
+  const [addTask, { isLoading }] = useAddTaskMutation();
   const [addTaskForm, SetAddTaskForm] = useState<IModalAddTaksProps>({
     title: "",
     description: "",
   });
 
-  const handleClose = () => {
-    setShow(false);
-    SetAddTaskForm({ title: "", description: "" });
-  };
-
-  const addTask = () => {
-    setShow(false);
+  const addTaskFunc = () => {
+    addTask(addTaskForm)
+      .unwrap()
+      .then(() => {
+        setTimeout(toggleAddEmployeeModal, 5000);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={isAddEmployeeModalOpen} onHide={toggleAddEmployeeModal}>
       <Modal.Header closeButton>
         <Modal.Title>add task</Modal.Title>
       </Modal.Header>
@@ -55,13 +61,13 @@ const AddTaskModal: React.FC<IModalProps> = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={toggleAddEmployeeModal}>
           close
         </Button>
         <Button
           variant="primary"
-          onClick={addTask}
-          disabled={addTaskForm.title.length < 3}
+          onClick={addTaskFunc}
+          disabled={addTaskForm.title.length < 3 || isLoading}
         >
           save
         </Button>

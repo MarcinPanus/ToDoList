@@ -9,12 +9,11 @@ const AllTasks: React.FC = () => {
 
   return (
     <>
-    <div className="m-5">
-      <Header {...{ show }} {...{ setShow }} />
-      <TasksList />
-    </div>
-    <AddTaskModal {...{ show }} {...{ setShow }} />
-
+      <div className="m-5">
+        <Header {...{ show, setShow }} />
+        <TasksList />
+      </div>
+      <AddTaskModal {...{ show, setShow }} />
     </>
   );
 };

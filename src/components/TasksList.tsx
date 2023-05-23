@@ -15,7 +15,11 @@ const TasksList: React.FC = () => {
   );
 
   if (isFetching) {
-    return <h5>Loading...</h5>;
+    return (
+      <div className="d-flex justify-content-center">
+        <h5>Loading...</h5>
+      </div>
+    );
   }
 
   return (
