@@ -3,20 +3,25 @@ import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { IModalAddProps, IModalAddTaksProps } from "task-types";
 
+const initialState = { title: "", description: "" };
+
 const AddTaskModal: React.FC<IModalAddProps> = (props) => {
   const { isAddEmployeeModalOpen, toggleAddEmployeeModal } = props;
 
   const [addTask, { isLoading }] = useAddTaskMutation();
-  const [addTaskForm, SetAddTaskForm] = useState<IModalAddTaksProps>({
-    title: "",
-    description: "",
-  });
+  const [addTaskForm, setAddTaskForm] =
+    useState<IModalAddTaksProps>(initialState);
+
+  const clearState = () => {
+    setAddTaskForm({ ...initialState });
+  };
 
   const addTaskFunc = () => {
     addTask(addTaskForm)
       .unwrap()
       .then(() => {
-        setTimeout(toggleAddEmployeeModal, 5000);
+        setTimeout(toggleAddEmployeeModal, 100);
+        clearState();
       })
       .catch((error) => {
         console.log(error);
@@ -24,7 +29,13 @@ const AddTaskModal: React.FC<IModalAddProps> = (props) => {
   };
 
   return (
-    <Modal show={isAddEmployeeModalOpen} onHide={toggleAddEmployeeModal}>
+    <Modal
+      show={isAddEmployeeModalOpen}
+      onHide={() => {
+        toggleAddEmployeeModal();
+        clearState();
+      }}
+    >
       <Modal.Header closeButton>
         <Modal.Title>add task</Modal.Title>
       </Modal.Header>
@@ -37,7 +48,7 @@ const AddTaskModal: React.FC<IModalAddProps> = (props) => {
               placeholder="type task title here"
               value={addTaskForm.title}
               onChange={(e) =>
-                SetAddTaskForm({ ...addTaskForm, title: e.target.value })
+                setAddTaskForm({ ...addTaskForm, title: e.target.value })
               }
             />
           </Form.Group>
@@ -51,7 +62,7 @@ const AddTaskModal: React.FC<IModalAddProps> = (props) => {
               placeholder="type task description here"
               value={addTaskForm.description}
               onChange={(e) =>
-                SetAddTaskForm({ ...addTaskForm, description: e.target.value })
+                setAddTaskForm({ ...addTaskForm, description: e.target.value })
               }
               rows={3}
             />
@@ -59,7 +70,13 @@ const AddTaskModal: React.FC<IModalAddProps> = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={toggleAddEmployeeModal}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            toggleAddEmployeeModal();
+            clearState();
+          }}
+        >
           close
         </Button>
         <Button

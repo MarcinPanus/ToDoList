@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITaskProps, IModalAddTaksProps } from "task-types";
+import { ITaskProps, IModalAddTaksProps, IModalDeleteProps } from "task-types";
 
 enum TasksTagTypes {
   TASKS = "TASKS",
@@ -32,10 +32,17 @@ export const tasksApi = createApi({
       }),
       invalidatesTags: [TasksTagTypes.TASKS],
     }),
+    deleteTask: build.mutation<unknown, IModalDeleteProps>({
+      query: (id) => ({
+        method: "DELETE",
+        url: `rest/tasks/${id}`,
+      }),
+      invalidatesTags: [TasksTagTypes.TASKS],
+    }),
   }),
 });
 
-export const { useGetAllTasksQuery, useAddTaskMutation } = tasksApi;
+export const { useGetAllTasksQuery, useAddTaskMutation, useDeleteTaskMutation } = tasksApi;
 
 export const tasksApiReducer = {
   [tasksApi.reducerPath]: tasksApi.reducer,

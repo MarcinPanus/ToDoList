@@ -3,7 +3,14 @@ import { ITaskProps } from "task-types";
 import { Circle, CheckCircleFill } from "react-bootstrap-icons";
 
 const Task: React.FC<ITaskProps> = (props) => {
-  const { _id, title, description, done } = props;
+  const {
+    _id,
+    title,
+    description,
+    done,
+    toggleDeleteEmployeeModal,
+    setIdTask,
+  } = props;
 
   return (
     <Accordion.Item eventKey={`${_id}`}>
@@ -19,7 +26,15 @@ const Task: React.FC<ITaskProps> = (props) => {
       <Accordion.Body>
         <div>{description}</div>
         <div className="mt-2">
-          <Button className="btn btn-danger m-1">delete</Button>
+          <Button
+            className="btn btn-danger m-1"
+            onClick={() => {
+              toggleDeleteEmployeeModal();
+              setIdTask(_id);
+            }}
+          >
+            delete
+          </Button>
           {!done && <Button className="btn btn-warning">edit</Button>}
         </div>
       </Accordion.Body>
