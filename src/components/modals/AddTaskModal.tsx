@@ -1,12 +1,10 @@
 import { useAddTaskMutation } from "@store/services/tasksService";
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useModal } from "src/hooks/useModal";
-import { IModalProps, IModalAddTaksProps } from "task-types";
+import { IModalAddProps, IModalAddTaksProps } from "task-types";
 
-const AddTaskModal: React.FC<IModalProps> = () => {
-  const { isOpen: isAddEmployeeModalOpen, toggle: toggleAddEmployeeModal } =
-    useModal();
+const AddTaskModal: React.FC<IModalAddProps> = (props) => {
+  const { isAddEmployeeModalOpen, toggleAddEmployeeModal } = props;
 
   const [addTask, { isLoading }] = useAddTaskMutation();
   const [addTaskForm, SetAddTaskForm] = useState<IModalAddTaksProps>({

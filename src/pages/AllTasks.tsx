@@ -1,19 +1,20 @@
 import Header from "@components/Header";
 import TasksList from "@components/TasksList";
 import AddTaskModal from "@components/modals/AddTaskModal";
-import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { useModal } from "src/hooks/useModal";
 
 const AllTasks: React.FC = () => {
-  const [show, setShow] = useState(false);
+  const { isOpen: isAddEmployeeModalOpen, toggle: toggleAddEmployeeModal } =
+    useModal(false);
 
   return (
     <>
       <div className="m-5">
-        <Header {...{ show, setShow }} />
+        <Header {...{ isAddEmployeeModalOpen, toggleAddEmployeeModal }} />
         <TasksList />
       </div>
-      <AddTaskModal {...{ show, setShow }} />
+      <AddTaskModal {...{ isAddEmployeeModalOpen, toggleAddEmployeeModal }} />
     </>
   );
 };

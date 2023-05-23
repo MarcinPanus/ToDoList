@@ -6,9 +6,9 @@ declare module "task-types" {
     done: boolean;
   }
 
-  interface IModalProps {
-    show: Boolean;
-    setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  interface IModalAddProps {
+    isAddEmployeeModalOpen: Boolean;
+    toggleAddEmployeeModal: () => void;
   }
 
   interface IModalAddTaksProps {

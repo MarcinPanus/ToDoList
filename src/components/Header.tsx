@@ -1,12 +1,10 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { useModal } from "src/hooks/useModal";
-import { IModalProps } from "task-types";
+import { IModalAddProps } from "task-types";
 
-const Header: React.FC<IModalProps> = () => {
-  const { isOpen: isAddEmployeeModalOpen, toggle: toggleAddEmployeeModal } =
-    useModal();
-  console.log(isAddEmployeeModalOpen);
+const Header: React.FC<IModalAddProps> = (props) => {
+  const { toggleAddEmployeeModal } = props;
+
   return (
     <div className="card-body m-5">
       <h2 className="card-title text-center mb-3">task list</h2>
