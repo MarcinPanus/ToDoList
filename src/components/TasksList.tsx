@@ -1,12 +1,10 @@
 import Task from "./Task";
-import { ITaskProps } from "task-types";
 import { useGetAllTasksQuery } from "@store/services/tasksService";
 import Accordion from "react-bootstrap/Accordion";
-import { IModalDeleteProps } from "task-types";
+import { ITaskProps, ITasksListProps } from "task-types";
 
-
-const TasksList: React.FC<IModalDeleteProps> = (props) => {
-  const { isDeleteTaskModalOpen, toggleDeleteTaskModal, setIdTask, isEditTaskModalOpen, toggleEditTaskModal } = props
+const TasksList: React.FC<ITasksListProps> = (props) => {
+  const { toggleDeleteTaskModal, setIdTask, toggleEditTaskModal } = props;
   const { tasks, isFetching } = useGetAllTasksQuery(
     {},
     {
@@ -29,7 +27,11 @@ const TasksList: React.FC<IModalDeleteProps> = (props) => {
     <Accordion className="d-grid gap-2 col-9 mx-auto" defaultActiveKey="0">
       {tasks.map((task: ITaskProps) => (
         <Task
-          {...{ isDeleteTaskModalOpen, toggleDeleteTaskModal, setIdTask }}
+          {...{
+            toggleDeleteTaskModal,
+            setIdTask,
+            toggleEditTaskModal,
+          }}
           key={task._id}
           _id={task._id}
           title={task.title}

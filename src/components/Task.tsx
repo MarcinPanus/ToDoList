@@ -9,6 +9,7 @@ const Task: React.FC<ITaskProps> = (props) => {
     description,
     done,
     toggleDeleteTaskModal,
+    toggleEditTaskModal,
     setIdTask,
   } = props;
 
@@ -35,7 +36,17 @@ const Task: React.FC<ITaskProps> = (props) => {
           >
             delete
           </Button>
-          {!done && <Button className="btn btn-warning">edit</Button>}
+          {!done && (
+            <Button
+              className="btn btn-warning"
+              onClick={() => {
+                toggleEditTaskModal();
+                setIdTask(_id);
+              }}
+            >
+              edit
+            </Button>
+          )}
         </div>
       </Accordion.Body>
     </Accordion.Item>

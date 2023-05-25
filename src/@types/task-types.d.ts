@@ -1,29 +1,40 @@
 declare module "task-types" {
-  export interface ITaskProps {
+  interface ITasksListProps {
+    toggleDeleteTaskModal: () => void;
+    toggleEditTaskModal: () => void;
+    setIdTask: React.Dispatch<React.SetStateAction<number>>;
+  }
+
+  interface ITaskProps {
     _id: number;
     title: string;
     description: string;
     done: boolean;
     toggleDeleteTaskModal: () => void;
+    toggleEditTaskModal: () => void;
     setIdTask: React.Dispatch<React.SetStateAction<number>>;
   }
 
-  interface IAddTaskModalProps {
-    isAddTaskModalOpen: Boolean;
+  interface IHeader {
     toggleAddTaskModal: () => void;
-    onClearState: () => void;
-    addTaskForm: {
-      title: string;
-      description: string;
-    };
-    setAddTaskForm: React.Dispatch<
-      React.SetStateAction<{
-        title: string;
-        description: string;
-      }>
-    >;
-    onAddTask: () => void;
   }
+
+  // interface IAddTaskModalProps {
+  //   isAddTaskModalOpen: Boolean;
+  //   toggleAddTaskModal: () => void;
+  //   onClearState: () => void;
+  //   addTaskForm: {
+  //     title: string;
+  //     description: string;
+  //   };
+  //   setAddTaskForm: React.Dispatch<
+  //     React.SetStateAction<{
+  //       title: string;
+  //       description: string;
+  //     }>
+  //   >;
+  //   onAddTask: () => void;
+  // }
 
   interface IDeleteTaskModalProps {
     isDeleteTaskModalOpen: Boolean;
@@ -45,5 +56,6 @@ declare module "task-types" {
         description: string;
       }>
     >;
+    title: String;
   }
 }

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITaskProps, IModalAddTaksProps, IModalDeleteProps } from "task-types";
+import { ITaskProps } from "task-types";
 
 enum TasksTagTypes {
   TASKS = "TASKS",
@@ -11,7 +11,6 @@ export const tasksApi = createApi({
     prepareHeaders: (headers, { getState }) => {
       headers.set("x-apikey", import.meta.env.VITE_API_KEY);
       headers.set("Content-Type", "application/json");
-      
     },
   }),
   reducerPath: "tasksApi",
@@ -24,25 +23,37 @@ export const tasksApi = createApi({
       }),
       providesTags: [TasksTagTypes.TASKS],
     }),
-    addTask: build.mutation<unknown, IModalAddTaksProps>({
+    addTask: build.mutation<ITaskProps, unknown>({
       query: (data) => ({
         method: "POST",
         url: `rest/tasks`,
-        body: data
+        body: data,
       }),
       invalidatesTags: [TasksTagTypes.TASKS],
     }),
-    deleteTask: build.mutation<unknown, IModalDeleteProps>({
+    deleteTask: build.mutation<ITaskProps, unknown>({
       query: (id) => ({
         method: "DELETE",
         url: `rest/tasks/${id}`,
       }),
       invalidatesTags: [TasksTagTypes.TASKS],
     }),
+    // editTask: build.mutation<unknown, IModalAddTaksProps>({
+    //   query: (id, data) => ({
+    //     method: "PUT",
+    //     url: `rest/tasks/${id}`,
+    //     body: data,
+    //   }),
+    //   invalidatesTags: [TasksTagTypes.TASKS],
+    // }),
   }),
 });
 
-export const { useGetAllTasksQuery, useAddTaskMutation, useDeleteTaskMutation } = tasksApi;
+export const {
+  useGetAllTasksQuery,
+  useAddTaskMutation,
+  useDeleteTaskMutation,
+} = tasksApi;
 
 export const tasksApiReducer = {
   [tasksApi.reducerPath]: tasksApi.reducer,

@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { IModalAddProps } from "task-types";
+import { IHeader } from "task-types";
 
-const Header: React.FC<IModalAddProps> = (props) => {
+const Header: React.FC<IHeader> = (props) => {
   const { toggleAddTaskModal } = props;
 
   return (

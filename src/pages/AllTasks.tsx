@@ -53,14 +53,11 @@ const AllTasks: React.FC = () => {
   return (
     <>
       <div className="m-5">
-        <Header {...{ isAddTaskModalOpen, toggleAddTaskModal }} />
+        <Header {...{ toggleAddTaskModal }} />
         <TasksList
           {...{
-            isDeleteTaskModalOpen,
             toggleDeleteTaskModal,
-            isEditTaskModalOpen,
             toggleEditTaskModal,
-            idTask,
             setIdTask,
           }}
         />
@@ -81,6 +78,18 @@ const AllTasks: React.FC = () => {
         onSubmit={onAddTask}
         taskForm={addTaskForm}
         setTaskForm={setAddTaskForm}
+        title="add task"
+      />
+      <AddEditTaskModal
+        isModalOpen={isEditTaskModalOpen}
+        onHideFunc={() => {
+          toggleEditTaskModal();
+          onClearState();
+        }}
+        onSubmit={onAddTask}
+        taskForm={addTaskForm}
+        setTaskForm={setAddTaskForm}
+        title="edit task"
       />
     </>
   );

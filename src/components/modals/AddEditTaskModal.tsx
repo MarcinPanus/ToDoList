@@ -2,7 +2,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { IAddEditTaskModal } from "task-types";
 
 const AddEditTaskModal: React.FC<IAddEditTaskModal> = (props) => {
-  const { isModalOpen, onHideFunc, onSubmit, taskForm, setTaskForm } = props;
+  const { isModalOpen, onHideFunc, onSubmit, taskForm, setTaskForm, title } = props;
 
   return (
     <Modal
@@ -12,7 +12,7 @@ const AddEditTaskModal: React.FC<IAddEditTaskModal> = (props) => {
       }}
     >
       <Modal.Header closeButton>
-        <Modal.Title>add task</Modal.Title>
+        <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
