@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { IModalAddProps } from "task-types";
 
 const Header: React.FC<IModalAddProps> = (props) => {
-  const { toggleAddEmployeeModal } = props;
+  const { toggleAddTaskModal } = props;
 
   return (
     <div className="card-body m-5">
@@ -13,7 +13,7 @@ const Header: React.FC<IModalAddProps> = (props) => {
         press the button below
       </div>
       <div className="d-grid gap-2 col-2 mx-auto">
-        <Button className="btn btn-primary" onClick={toggleAddEmployeeModal}>
+        <Button className="btn btn-primary" onClick={toggleAddTaskModal}>
           add task
         </Button>
       </div>

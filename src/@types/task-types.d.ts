@@ -4,24 +4,30 @@ declare module "task-types" {
     title: string;
     description: string;
     done: boolean;
-    toggleDeleteEmployeeModal: () => void;
+    toggleDeleteTaskModal: () => void;
     setIdTask: React.Dispatch<React.SetStateAction<number>>;
   }
 
-  interface IModalAddProps {
-    isAddEmployeeModalOpen: Boolean;
-    toggleAddEmployeeModal: () => void;
+  interface IAddTaskModalProps {
+    isAddTaskModalOpen: Boolean;
+    toggleAddTaskModal: () => void;
+    onClearState: () => void;
+    addTaskForm: {
+      title: string;
+      description: string;
+    };
+    setAddTaskForm: React.Dispatch<
+      React.SetStateAction<{
+        title: string;
+        description: string;
+      }>
+    >;
+    onAddTask: () => void;
   }
 
-  interface IModalDeleteProps {
-    isDeleteEmployeeModalOpen: Boolean;
-    toggleDeleteEmployeeModal: () => void;
-    setIdTask: React.Dispatch<React.SetStateAction<number>>;
-    idTask: number;
-  }
-
-  interface IModalAddTaksProps {
-    title: string;
-    description: string;
+  interface IDeleteTaskModalProps {
+    isDeleteTaskModalOpen: Boolean;
+    toggleDeleteTaskModal: () => void;
+    onDeleteTask: () => void;
   }
 }

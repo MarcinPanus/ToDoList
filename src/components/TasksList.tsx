@@ -6,7 +6,7 @@ import { IModalDeleteProps } from "task-types";
 
 
 const TasksList: React.FC<IModalDeleteProps> = (props) => {
-  const { isDeleteEmployeeModalOpen, toggleDeleteEmployeeModal, setIdTask } = props
+  const { isDeleteTaskModalOpen, toggleDeleteTaskModal, setIdTask, isEditTaskModalOpen, toggleEditTaskModal } = props
   const { tasks, isFetching } = useGetAllTasksQuery(
     {},
     {
@@ -29,7 +29,7 @@ const TasksList: React.FC<IModalDeleteProps> = (props) => {
     <Accordion className="d-grid gap-2 col-9 mx-auto" defaultActiveKey="0">
       {tasks.map((task: ITaskProps) => (
         <Task
-          {...{ isDeleteEmployeeModalOpen, toggleDeleteEmployeeModal, setIdTask }}
+          {...{ isDeleteTaskModalOpen, toggleDeleteTaskModal, setIdTask }}
           key={task._id}
           _id={task._id}
           title={task.title}

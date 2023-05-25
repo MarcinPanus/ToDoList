@@ -8,7 +8,7 @@ const Task: React.FC<ITaskProps> = (props) => {
     title,
     description,
     done,
-    toggleDeleteEmployeeModal,
+    toggleDeleteTaskModal,
     setIdTask,
   } = props;
 
@@ -29,7 +29,7 @@ const Task: React.FC<ITaskProps> = (props) => {
           <Button
             className="btn btn-danger m-1"
             onClick={() => {
-              toggleDeleteEmployeeModal();
+              toggleDeleteTaskModal();
               setIdTask(_id);
             }}
           >

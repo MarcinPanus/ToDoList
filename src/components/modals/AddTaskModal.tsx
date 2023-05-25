@@ -1,39 +1,22 @@
-import { useAddTaskMutation } from "@store/services/tasksService";
-import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { IModalAddProps, IModalAddTaksProps } from "task-types";
+import { IAddTaskModalProps } from "task-types";
 
-const initialState = { title: "", description: "" };
-
-const AddTaskModal: React.FC<IModalAddProps> = (props) => {
-  const { isAddEmployeeModalOpen, toggleAddEmployeeModal } = props;
-
-  const [addTask, { isLoading }] = useAddTaskMutation();
-  const [addTaskForm, setAddTaskForm] =
-    useState<IModalAddTaksProps>(initialState);
-
-  const clearState = () => {
-    setAddTaskForm({ ...initialState });
-  };
-
-  const addTaskFunc = () => {
-    addTask(addTaskForm)
-      .unwrap()
-      .then(() => {
-        setTimeout(toggleAddEmployeeModal, 100);
-        clearState();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+const AddTaskModal: React.FC<IAddTaskModalProps> = (props) => {
+  const {
+    isAddTaskModalOpen,
+    toggleAddTaskModal,
+    addTaskForm,
+    setAddTaskForm,
+    onClearState,
+    onAddTask,
+  } = props;
 
   return (
     <Modal
-      show={isAddEmployeeModalOpen}
+      show={isAddTaskModalOpen}
       onHide={() => {
-        toggleAddEmployeeModal();
-        clearState();
+        toggleAddTaskModal();
+        onClearState();
       }}
     >
       <Modal.Header closeButton>
@@ -73,16 +56,16 @@ const AddTaskModal: React.FC<IModalAddProps> = (props) => {
         <Button
           variant="secondary"
           onClick={() => {
-            toggleAddEmployeeModal();
-            clearState();
+            toggleAddTaskModal();
+            onClearState();
           }}
         >
           close
         </Button>
         <Button
           variant="primary"
-          onClick={addTaskFunc}
-          disabled={addTaskForm.title.length < 3 || isLoading}
+          onClick={onAddTask}
+          disabled={addTaskForm.title.length < 3}
         >
           save
         </Button>

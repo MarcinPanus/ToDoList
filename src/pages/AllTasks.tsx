@@ -4,36 +4,82 @@ import AddTaskModal from "@components/modals/AddTaskModal";
 import DeleteTaskModal from "@components/modals/DeleteTaskModal";
 import { useModal } from "src/hooks/useModal";
 import { useState } from "react";
+import {
+  useAddTaskMutation,
+  useDeleteTaskMutation,
+} from "@store/services/tasksService";
+
+const initialState = { title: "", description: "" };
 
 const AllTasks: React.FC = () => {
-  const { isOpen: isAddEmployeeModalOpen, toggle: toggleAddEmployeeModal } =
+  const { isOpen: isAddTaskModalOpen, toggle: toggleAddTaskModal } =
     useModal(false);
-  const {
-    isOpen: isDeleteEmployeeModalOpen,
-    toggle: toggleDeleteEmployeeModal,
-  } = useModal(false);
+  const { isOpen: isDeleteTaskModalOpen, toggle: toggleDeleteTaskModal } =
+    useModal(false);
+  const { isOpen: isEditTaskModalOpen, toggle: toggleEditTaskModal } =
+    useModal(false);
+  const [addTaskForm, setAddTaskForm] = useState(initialState);
   const [idTask, setIdTask] = useState<number>(0);
+  const [addTask] = useAddTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
+
+  const onClearState = () => {
+    setAddTaskForm({ ...initialState });
+  };
+
+  const onAddTask = () => {
+    addTask(addTaskForm)
+      .unwrap()
+      .then(() => {
+        setTimeout(toggleAddTaskModal, 100);
+        onClearState();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onDeleteTask = () => {
+    deleteTask(idTask)
+      .unwrap()
+      .then(() => {
+        setTimeout(toggleDeleteTaskModal, 100);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
       <div className="m-5">
-        <Header {...{ isAddEmployeeModalOpen, toggleAddEmployeeModal }} />
+        <Header {...{ isAddTaskModalOpen, toggleAddTaskModal }} />
         <TasksList
           {...{
-            isDeleteEmployeeModalOpen,
-            toggleDeleteEmployeeModal,
+            isDeleteTaskModalOpen,
+            toggleDeleteTaskModal,
+            isEditTaskModalOpen,
+            toggleEditTaskModal,
             idTask,
             setIdTask,
           }}
         />
       </div>
-      <AddTaskModal {...{ isAddEmployeeModalOpen, toggleAddEmployeeModal }} />
+      <AddTaskModal
+        {...{
+          isAddTaskModalOpen,
+          toggleAddTaskModal,
+          addTaskForm,
+          setAddTaskForm,
+          onClearState,
+          onAddTask,
+        }}
+      />
       <DeleteTaskModal
         {...{
-          isDeleteEmployeeModalOpen,
-          toggleDeleteEmployeeModal,
-          idTask,
-          setIdTask,
+          isDeleteTaskModalOpen,
+          toggleDeleteTaskModal,
+          onDeleteTask,
         }}
       />
     </>
