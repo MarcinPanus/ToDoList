@@ -38,14 +38,14 @@ export const tasksApi = createApi({
       }),
       invalidatesTags: [TasksTagTypes.TASKS],
     }),
-    // editTask: build.mutation<unknown, IModalAddTaksProps>({
-    //   query: (id, data) => ({
-    //     method: "PUT",
-    //     url: `rest/tasks/${id}`,
-    //     body: data,
-    //   }),
-    //   invalidatesTags: [TasksTagTypes.TASKS],
-    // }),
+    editTask: build.mutation<{ id: string }, any>({
+      query: ({ id, ...body }) => ({
+        method: "PUT",
+        url: `rest/tasks/${id}`,
+        body: body,
+      }),
+      invalidatesTags: [TasksTagTypes.TASKS],
+    }),
   }),
 });
 
@@ -53,6 +53,7 @@ export const {
   useGetAllTasksQuery,
   useAddTaskMutation,
   useDeleteTaskMutation,
+  useEditTaskMutation,
 } = tasksApi;
 
 export const tasksApiReducer = {

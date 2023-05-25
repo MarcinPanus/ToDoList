@@ -19,23 +19,6 @@ declare module "task-types" {
     toggleAddTaskModal: () => void;
   }
 
-  // interface IAddTaskModalProps {
-  //   isAddTaskModalOpen: Boolean;
-  //   toggleAddTaskModal: () => void;
-  //   onClearState: () => void;
-  //   addTaskForm: {
-  //     title: string;
-  //     description: string;
-  //   };
-  //   setAddTaskForm: React.Dispatch<
-  //     React.SetStateAction<{
-  //       title: string;
-  //       description: string;
-  //     }>
-  //   >;
-  //   onAddTask: () => void;
-  // }
-
   interface IDeleteTaskModalProps {
     isDeleteTaskModalOpen: Boolean;
     toggleDeleteTaskModal: () => void;

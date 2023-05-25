@@ -7,6 +7,7 @@ import { useState } from "react";
 import {
   useAddTaskMutation,
   useDeleteTaskMutation,
+  useEditTaskMutation,
 } from "@store/services/tasksService";
 
 const initialState = { title: "", description: "" };
@@ -18,15 +19,20 @@ const AllTasks: React.FC = () => {
     useModal(false);
   const { isOpen: isEditTaskModalOpen, toggle: toggleEditTaskModal } =
     useModal(false);
+
   const [addTaskForm, setAddTaskForm] = useState(initialState);
-  const [idTask, setIdTask] = useState<number>(0);
+  const [editTaskForm, setEditTaskForm] = useState(initialState);
+  const [idTask, setIdTask] = useState(0);
+
   const [addTask] = useAddTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
+  const [editTask] = useEditTaskMutation();
 
   const onClearState = () => {
     setAddTaskForm({ ...initialState });
   };
-
+  console.log(idTask);
+  console.log(editTaskForm);
   const onAddTask = () => {
     addTask(addTaskForm)
       .unwrap()
@@ -44,6 +50,18 @@ const AllTasks: React.FC = () => {
       .unwrap()
       .then(() => {
         setTimeout(toggleDeleteTaskModal, 100);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onEditTask = () => {
+    editTask({ idTask, ...editTaskForm })
+      .unwrap()
+      .then(() => {
+        setTimeout(toggleEditTaskModal, 100);
+        onClearState();
       })
       .catch((error) => {
         console.log(error);
@@ -86,9 +104,9 @@ const AllTasks: React.FC = () => {
           toggleEditTaskModal();
           onClearState();
         }}
-        onSubmit={onAddTask}
-        taskForm={addTaskForm}
-        setTaskForm={setAddTaskForm}
+        onSubmit={onEditTask}
+        taskForm={editTaskForm}
+        setTaskForm={setEditTaskForm}
         title="edit task"
       />
     </>
