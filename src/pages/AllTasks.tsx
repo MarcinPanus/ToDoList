@@ -1,7 +1,7 @@
 import Header from "@components/Header";
 import TasksList from "@components/TasksList";
-import AddTaskModal from "@components/modals/AddTaskModal";
 import DeleteTaskModal from "@components/modals/DeleteTaskModal";
+import AddEditTaskModal from "@components/modals/AddEditTaskModal";
 import { useModal } from "src/hooks/useModal";
 import { useState } from "react";
 import {
@@ -65,22 +65,22 @@ const AllTasks: React.FC = () => {
           }}
         />
       </div>
-      <AddTaskModal
-        {...{
-          isAddTaskModalOpen,
-          toggleAddTaskModal,
-          addTaskForm,
-          setAddTaskForm,
-          onClearState,
-          onAddTask,
-        }}
-      />
       <DeleteTaskModal
         {...{
           isDeleteTaskModalOpen,
           toggleDeleteTaskModal,
           onDeleteTask,
         }}
+      />
+      <AddEditTaskModal
+        isModalOpen={isAddTaskModalOpen}
+        onHideFunc={() => {
+          toggleAddTaskModal();
+          onClearState();
+        }}
+        onSubmit={onAddTask}
+        taskForm={addTaskForm}
+        setTaskForm={setAddTaskForm}
       />
     </>
   );

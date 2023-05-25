@@ -1,22 +1,14 @@
 import { Button, Form, Modal } from "react-bootstrap";
-import { IAddTaskModalProps } from "task-types";
+import { IAddEditTaskModal } from "task-types";
 
-const AddTaskModal: React.FC<IAddTaskModalProps> = (props) => {
-  const {
-    isAddTaskModalOpen,
-    toggleAddTaskModal,
-    addTaskForm,
-    setAddTaskForm,
-    onClearState,
-    onAddTask,
-  } = props;
+const AddEditTaskModal: React.FC<IAddEditTaskModal> = (props) => {
+  const { isModalOpen, onHideFunc, onSubmit, taskForm, setTaskForm } = props;
 
   return (
     <Modal
-      show={isAddTaskModalOpen}
+      show={isModalOpen}
       onHide={() => {
-        toggleAddTaskModal();
-        onClearState();
+        onHideFunc();
       }}
     >
       <Modal.Header closeButton>
@@ -29,9 +21,9 @@ const AddTaskModal: React.FC<IAddTaskModalProps> = (props) => {
             <Form.Control
               id="title-input"
               placeholder="type task title here"
-              value={addTaskForm.title}
+              value={taskForm.title}
               onChange={(e) =>
-                setAddTaskForm({ ...addTaskForm, title: e.target.value })
+                setTaskForm({ ...taskForm, title: e.target.value })
               }
             />
           </Form.Group>
@@ -43,9 +35,9 @@ const AddTaskModal: React.FC<IAddTaskModalProps> = (props) => {
               as="textarea"
               id="description-input"
               placeholder="type task description here"
-              value={addTaskForm.description}
+              value={taskForm.description}
               onChange={(e) =>
-                setAddTaskForm({ ...addTaskForm, description: e.target.value })
+                setTaskForm({ ...taskForm, description: e.target.value })
               }
               rows={3}
             />
@@ -56,16 +48,15 @@ const AddTaskModal: React.FC<IAddTaskModalProps> = (props) => {
         <Button
           variant="secondary"
           onClick={() => {
-            toggleAddTaskModal();
-            onClearState();
+            onHideFunc();
           }}
         >
           close
         </Button>
         <Button
           variant="primary"
-          onClick={onAddTask}
-          disabled={addTaskForm.title.length < 3}
+          onClick={onSubmit}
+          disabled={taskForm.title.length < 3}
         >
           save
         </Button>
@@ -74,4 +65,4 @@ const AddTaskModal: React.FC<IAddTaskModalProps> = (props) => {
   );
 };
 
-export default AddTaskModal;
+export default AddEditTaskModal;

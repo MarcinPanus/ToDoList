@@ -30,4 +30,20 @@ declare module "task-types" {
     toggleDeleteTaskModal: () => void;
     onDeleteTask: () => void;
   }
+
+  interface IAddEditTaskModal {
+    isModalOpen: Boolean;
+    onHideFunc: () => void;
+    onSubmit: () => void;
+    taskForm: {
+      title: string;
+      description: string;
+    };
+    setTaskForm: React.Dispatch<
+      React.SetStateAction<{
+        title: string;
+        description: string;
+      }>
+    >;
+  }
 }
