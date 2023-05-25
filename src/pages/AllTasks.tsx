@@ -1,14 +1,15 @@
-import Header from "@components/Header";
-import TasksList from "@components/TasksList";
-import DeleteTaskModal from "@components/modals/DeleteTaskModal";
-import AddEditTaskModal from "@components/modals/AddEditTaskModal";
-import { useModal } from "src/hooks/useModal";
 import { useState } from "react";
 import {
+  useGetTaskQuery,
   useAddTaskMutation,
   useDeleteTaskMutation,
   useEditTaskMutation,
 } from "@store/services/tasksService";
+import { useModal } from "src/hooks/useModal";
+import Header from "@components/Header";
+import TasksList from "@components/TasksList";
+import DeleteTaskModal from "@components/modals/DeleteTaskModal";
+import AddEditTaskModal from "@components/modals/AddEditTaskModal";
 
 const initialState = { title: "", description: "" };
 
@@ -30,9 +31,18 @@ const AllTasks: React.FC = () => {
 
   const onClearState = () => {
     setAddTaskForm({ ...initialState });
+
+    const { task, isFetching } = useGetTaskQuery(
+      {},
+      {
+        selectFromResult: ({ data, isFetching }) => ({
+          task: data || {},
+          isFetching,
+        }),
+      }
+    );
   };
-  console.log(idTask);
-  console.log(editTaskForm);
+
   const onAddTask = () => {
     addTask(addTaskForm)
       .unwrap()
@@ -57,7 +67,7 @@ const AllTasks: React.FC = () => {
   };
 
   const onEditTask = () => {
-    editTask({ idTask, ...editTaskForm })
+    editTask({ id: idTask, ...editTaskForm })
       .unwrap()
       .then(() => {
         setTimeout(toggleEditTaskModal, 100);

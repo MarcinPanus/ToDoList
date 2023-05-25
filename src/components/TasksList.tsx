@@ -1,7 +1,7 @@
+import { ITaskProps, ITasksListProps } from "task-types";
+import Accordion from "react-bootstrap/Accordion";
 import Task from "./Task";
 import { useGetAllTasksQuery } from "@store/services/tasksService";
-import Accordion from "react-bootstrap/Accordion";
-import { ITaskProps, ITasksListProps } from "task-types";
 
 const TasksList: React.FC<ITasksListProps> = (props) => {
   const { toggleDeleteTaskModal, setIdTask, toggleEditTaskModal } = props;

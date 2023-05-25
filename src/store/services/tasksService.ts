@@ -16,6 +16,13 @@ export const tasksApi = createApi({
   reducerPath: "tasksApi",
   tagTypes: [TasksTagTypes.TASKS],
   endpoints: (build) => ({
+    getTask: build.query<ITaskProps, unknown>({
+      query: (id) => ({
+        method: "GET",
+        url: `/rest/tasks/${id}`,
+      }),
+      providesTags: [TasksTagTypes.TASKS],
+    }),
     getAllTasks: build.query<ITaskProps[], unknown>({
       query: () => ({
         method: "GET",
@@ -50,6 +57,7 @@ export const tasksApi = createApi({
 });
 
 export const {
+  useGetTaskQuery,
   useGetAllTasksQuery,
   useAddTaskMutation,
   useDeleteTaskMutation,

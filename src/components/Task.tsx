@@ -1,6 +1,6 @@
 import { Accordion, Button } from "react-bootstrap";
-import { ITaskProps } from "task-types";
 import { Circle, CheckCircleFill } from "react-bootstrap-icons";
+import { ITaskProps } from "task-types";
 
 const Task: React.FC<ITaskProps> = (props) => {
   const {
