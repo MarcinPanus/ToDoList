@@ -1,6 +1,14 @@
 import { Accordion, Button } from "react-bootstrap";
-import { Circle, CheckCircleFill } from "react-bootstrap-icons";
+import {
+  Circle,
+  CheckCircleFill,
+  Check2Circle,
+  XCircle,
+  Trash3,
+  Pen,
+} from "react-bootstrap-icons";
 import { ITaskProps } from "task-types";
+import { useEditTaskMutation } from "@store/services/tasksService";
 
 const Task: React.FC<ITaskProps> = (props) => {
   const {
@@ -13,6 +21,16 @@ const Task: React.FC<ITaskProps> = (props) => {
     setIdTask,
   } = props;
 
+  const [editTask] = useEditTaskMutation();
+
+  const onEditTask = () => {
+    editTask({ id: _id, done: !done })
+      .unwrap()
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Accordion.Item eventKey={`${_id}`}>
       <Accordion.Header>
@@ -21,8 +39,7 @@ const Task: React.FC<ITaskProps> = (props) => {
         ) : (
           <Circle className="mx-2" />
         )}
-
-        {done ? <del>title</del> : title}
+        {done ? <del>{title}</del> : title}
       </Accordion.Header>
       <Accordion.Body>
         <div>{description}</div>
@@ -34,19 +51,38 @@ const Task: React.FC<ITaskProps> = (props) => {
               setIdTask(_id);
             }}
           >
+            <Trash3 className="mx-1" />
             delete
           </Button>
           {!done && (
             <Button
-              className="btn btn-warning"
+              className="btn btn-warning m-1"
               onClick={() => {
                 toggleEditTaskModal();
                 setIdTask(_id);
               }}
             >
+              <Pen className="mx-1" />
               edit
             </Button>
           )}
+          <Button
+            variant={done ? "outline-dark" : "outline-success"}
+            className="m-1"
+            onClick={onEditTask}
+          >
+            {done ? (
+              <>
+                <XCircle className="mx-1" />
+                undone
+              </>
+            ) : (
+              <>
+                <Check2Circle className="mx-1" />
+                done
+              </>
+            )}
+          </Button>
         </div>
       </Accordion.Body>
     </Accordion.Item>

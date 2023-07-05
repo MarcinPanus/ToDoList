@@ -53,6 +53,14 @@ export const tasksApi = createApi({
       }),
       invalidatesTags: [TasksTagTypes.TASKS],
     }),
+    editTaskIsDone: build.mutation<{ id: string }, any>({
+      query: ({ id, ...body }) => ({
+        method: "PATCH",
+        url: `rest/tasks/${id}`,
+        body: body,
+      }),
+      invalidatesTags: [TasksTagTypes.TASKS],
+    }),
   }),
 });
 

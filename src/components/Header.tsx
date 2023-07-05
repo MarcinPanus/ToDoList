@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import { IHeader } from "task-types";
+import { PlusCircle } from "react-bootstrap-icons";
 
 const Header: React.FC<IHeader> = (props) => {
   const { toggleAddTaskModal } = props;
@@ -13,6 +14,7 @@ const Header: React.FC<IHeader> = (props) => {
       </div>
       <div className="d-grid gap-2 col-2 mx-auto">
         <Button className="btn btn-primary" onClick={toggleAddTaskModal}>
+          <PlusCircle className="mx-1"/>
           add task
         </Button>
       </div>
